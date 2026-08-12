@@ -57,9 +57,10 @@ This guide provides step-by-step instructions for deploying ChatApp's **Backend*
    PUBLIC_BASE_URL=https://chatappserver.knsoftic.com
    CORS_ORIGIN=https://chatapp.knsoftic.com
    ```
-4. Run npm install & build:
+4. Run npm install & build in the `backend` directory:
    ```bash
-   npm install --production
+   cd backend
+   npm install
    npm run build
    ```
 5. Click **Start App** / restart Node server.
@@ -115,3 +116,31 @@ git push origin main
 5. Paste the Hostinger Webhook URL and select **Just the push event**.
 
 🎉 **Every git push to `main` branch will automatically deploy your code live to Hostinger!**
+
+---
+
+## ⚠️ 4. Troubleshooting & Terminal Output Explanation
+
+### Q1: What do the `npm warn deprecated` messages mean?
+During `npm install`, you may see warnings such as:
+```text
+npm warn deprecated inflight@1.0.6...
+npm warn deprecated rimraf@2.7.1...
+npm warn deprecated glob@7.2.3...
+npm warn deprecated multer@1.4.5-lts.2...
+npm warn deprecated uuid@9.0.1...
+```
+**These are standard informational notices from NPM.** They inform you that sub-dependencies maintainers have released newer versions. **They are NOT errors and will NOT prevent your application from building or running properly.**
+
+### Q2: What does `> chat-app-backend@1.0.0 build` `> npx tsc` output mean?
+When you see:
+```text
+> chat-app-backend@1.0.0 build
+> npx tsc
+```
+This means NPM successfully ran the TypeScript compiler (`npx tsc`). If no red `ERROR` line follows this output, **the build succeeded 100% cleanly** and generated the production JavaScript files inside `backend/dist/` (`dist/server.js`).
+
+### Q3: If Hostinger app fails to start:
+1. Ensure the **Application Startup File** in Hostinger Node.js settings is set to `dist/server.js`.
+2. Ensure you have run `npm run build` after pulling code from Git.
+3. Ensure `.env` is created in `backend/` on Hostinger with correct database credentials.
