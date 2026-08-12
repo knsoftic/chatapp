@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Environment Variables (Keep secrets safe!)
+.env
+backend/.env
+*.env.local
+
+# Expo & Web Builds
+frontend/.expo/
+frontend/dist/
+frontend/web-build/
+*.apk
+*.aab
+*.ipa
+
+# Build & Output
+backend/dist/
+backend/uploads/
+*.log
+
+# IDE & System
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

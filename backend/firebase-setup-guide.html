@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firebase Setup Guide — ChatApp</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0A0E1A;
+      color: #E2E8F0;
+      min-height: 100vh;
+      padding: 0 0 60px;
+    }
+    .hero {
+      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+      padding: 48px 32px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .hero p { color: rgba(255,255,255,0.85); font-size: 1.05rem; max-width: 540px; margin: 0 auto; }
+    .container { max-width: 820px; margin: 0 auto; padding: 40px 24px; }
+    .card {
+      background: #111827;
+      border: 1px solid #1E293B;
+      border-radius: 20px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+    }
+    .step-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: #4F46E5; color: #fff; font-weight: 800; font-size: 1rem;
+      margin-right: 14px; flex-shrink: 0;
+    }
+    .step-header { display: flex; align-items: center; margin-bottom: 18px; }
+    .step-header h2 { font-size: 1.15rem; font-weight: 700; color: #F1F5F9; }
+    .step-body { padding-left: 50px; }
+    .step-body p { color: #94A3B8; line-height: 1.7; margin-bottom: 12px; font-size: 0.97rem; }
+    .step-body ol, .step-body ul { color: #94A3B8; padding-left: 20px; line-height: 2; font-size: 0.97rem; }
+    .step-body li { margin-bottom: 4px; }
+    .step-body strong { color: #E2E8F0; }
+    .btn-link {
+      display: inline-block; margin-top: 10px;
+      background: #4F46E5; color: #fff; text-decoration: none;
+      padding: 10px 20px; border-radius: 10px; font-weight: 700; font-size: 0.92rem;
+      transition: background 0.2s;
+    }
+    .btn-link:hover { background: #4338CA; }
+    .code-block {
+      background: #0F172A; border: 1px solid #1E293B;
+      border-radius: 12px; padding: 20px 24px;
+      font-family: 'Cascadia Code', 'Fira Code', monospace;
+      font-size: 0.85rem; line-height: 1.9; margin-top: 14px;
+      overflow-x: auto;
+    }
+    .code-block .key { color: #60A5FA; }
+    .code-block .val { color: #34D399; }
+    .code-block .comment { color: #6B7280; font-style: italic; }
+    .highlight {
+      background: #1E1B4B; border: 1px solid #4F46E5;
+      border-radius: 10px; padding: 14px 18px; margin-top: 14px;
+      color: #A5B4FC; font-size: 0.93rem; line-height: 1.7;
+    }
+    .highlight strong { color: #818CF8; }
+    .warn-box {
+      background: #1C1008; border: 1px solid #D97706;
+      border-radius: 10px; padding: 14px 18px; margin-top: 14px;
+      color: #FCD34D; font-size: 0.93rem; line-height: 1.7;
+    }
+    .success-box {
+      background: #052e16; border: 1px solid #16A34A;
+      border-radius: 10px; padding: 14px 18px; margin-top: 14px;
+      color: #4ADE80; font-size: 0.93rem; line-height: 1.7;
+    }
+    .image-placeholder {
+      background: #1E293B; border-radius: 12px; height: 160px;
+      display: flex; align-items: center; justify-content: center;
+      color: #475569; font-size: 0.9rem; margin-top: 14px; border: 2px dashed #334155;
+      text-align: center; padding: 20px;
+    }
+    hr { border: none; border-top: 1px solid #1E293B; margin: 8px 0 24px; }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🔥 Firebase Setup Guide</h1>
+  <p>Step-by-step instructions to enable real SMS OTP verification for ChatApp</p>
+</div>
+
+<div class="container">
+
+  <!-- Step 1 -->
+  <div class="card">
+    <div class="step-header">
+      <span class="step-badge">1</span>
+      <h2>Go to Firebase Console</h2>
+    </div>
+    <div class="step-body">
+      <p>Open the Firebase Console in your browser and sign in with your Google account.</p>
+      <a class="btn-link" href="https://console.firebase.google.com/" target="_blank">🔗 Open Firebase Console</a>
+      <div class="highlight">
+        <strong>Already have a project?</strong> Select it and skip to Step 3.<br>
+        <strong>New project?</strong> Click <strong>"Add project"</strong> below.
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="card">
+    <div class="step-header">
+      <span class="step-badge">2</span>
+      <h2>Create a Firebase Project (if needed)</h2>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>Click <strong>"Add project"</strong></li>
+        <li>Enter project name (e.g., <strong>chatapp-prod</strong>)</li>
+        <li>Disable Google Analytics (optional)</li>
+        <li>Click <strong>"Create project"</strong></li>
+        <li>Wait for setup, then click <strong>"Continue"</strong></li>
+      </ol>
+      <div class="warn-box">
+        ⚠️ <strong>Important:</strong> You MUST upgrade to <strong>Blaze (Pay-as-you-go)</strong> plan to use Phone Authentication with real SMS. Free Spark plan does NOT support outbound SMS.
+        <br><br>
+        Go to: <strong>Project Settings → Usage and billing → Modify plan → Blaze</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="card">
+    <div class="step-header">
+      <span class="step-badge">3</span>
+      <h2>Enable Phone Authentication</h2>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>In the left sidebar, click <strong>Build</strong> → <strong>Authentication</strong></li>
+        <li>Click <strong>"Get started"</strong></li>
+        <li>Go to <strong>"Sign-in method"</strong> tab</li>
+        <li>Click on <strong>Phone</strong></li>
+        <li>Toggle <strong>Enable</strong> to ON</li>
+        <li>Click <strong>Save</strong></li>
+      </ol>
+      <div class="success-box">
+        ✅ Phone Authentication is now enabled. Firebase will send real SMS OTP codes to any phone number worldwide.
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="card">
+    <div class="step-header">
+      <span class="step-badge">4</span>
+      <h2>Generate Service Account Key (JSON)</h2>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>Click ⚙️ <strong>gear icon</strong> next to "Project Overview" → <strong>Project settings</strong></li>
+        <li>Go to the <strong>"Service accounts"</strong> tab</li>
+        <li>Select <strong>"Node.js"</strong> in the Admin SDK configuration snippet</li>
+        <li>Click <strong>"Generate new private key"</strong></li>
+        <li>Click <strong>"Generate key"</strong> in the popup</li>
+        <li>A <strong>.json file</strong> will download to your computer</li>
+      </ol>
+      <div class="highlight">
+        📂 The downloaded JSON file will look like:<br>
+        <code style="color:#818CF8">chatapp-prod-firebase-adminsdk-xxxxx-xxxxxxxxxx.json</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="card">
+    <div class="step-header">
+      <span class="step-badge">5</span>
+      <h2>Open the Downloaded JSON File</h2>
+    </div>
+    <div class="step-body">
+      <p>Open the downloaded JSON file with Notepad or any code editor. It will look like this:</p>
+      <div class="code-block">
+{<br>
+&nbsp;&nbsp;<span class="key">"type"</span>: <span class="val">"service_account"</span>,<br>
+&nbsp;&nbsp;<span class="key">"project_id"</span>: <span class="val">"chatapp-prod-12345"</span>,<br>
+&nbsp;&nbsp;<span class="key">"private_key_id"</span>: <span class="val">"abc123..."</span>,<br>
+&nbsp;&nbsp;<span class="key">"private_key"</span>: <span class="val">"-----BEGIN PRIVATE KEY-----\nMIIEvQIBAD..."</span>,<br>
+&nbsp;&nbsp;<span class="key">"client_email"</span>: <span class="val">"firebase-adminsdk-xxx@chatapp-prod-12345.iam.gserviceaccount.com"</span>,<br>
+&nbsp;&nbsp;<span class="key">"client_id"</span>: <span class="val">"1234567890"</span>,<br>
+&nbsp;&nbsp;<span class="comment">// ... more fields</span><br>
+}
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 6 -->
+  <div class="card">
+    <div class="step-header">
+      <span class="step-badge">6</span>
+      <h2>Copy Values into <code style="color:#818CF8">.env</code> File</h2>
+    </div>
+    <div class="step-body">
+      <p>Open the file <strong>backend/.env</strong> and update these values from your downloaded JSON:</p>
+      <div class="code-block">
+<span class="comment"># ──── COPY FROM JSON ────────────────────────────────────────</span><br>
+<br>
+<span class="comment"># From "project_id" in JSON:</span><br>
+<span class="key">FIREBASE_PROJECT_ID</span>=<span class="val">chatapp-prod-12345</span><br>
+<br>
+<span class="comment"># From "client_email" in JSON:</span><br>
+<span class="key">FIREBASE_CLIENT_EMAIL</span>=<span class="val">firebase-adminsdk-xxx@chatapp-prod-12345.iam.gserviceaccount.com</span><br>
+<br>
+<span class="comment"># From "private_key" in JSON — keep the \n characters!</span><br>
+<span class="key">FIREBASE_PRIVATE_KEY</span>=<span class="val">"-----BEGIN PRIVATE KEY-----\nMIIEvQIBAD...\n-----END PRIVATE KEY-----\n"</span><br>
+<br>
+<span class="comment"># From Firebase Console → Storage → gs://YOUR-BUCKET.appspot.com</span><br>
+<span class="key">FIREBASE_STORAGE_BUCKET</span>=<span class="val">chatapp-prod-12345.appspot.com</span><br>
+<br>
+<span class="comment"># ──── SWITCH TO LIVE OTP ─────────────────────────────────────</span><br>
+<span class="key">OTP_DEV_MODE</span>=<span class="val">false</span>
+      </div>
+      <div class="warn-box">
+        ⚠️ <strong>PRIVATE_KEY warning:</strong> The private key contains <code>\n</code> newline characters. Make sure you copy the <strong>entire value including these characters</strong> and wrap it in double quotes in the .env file.
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 7 -->
+  <div class="card">
+    <div class="step-header">
+      <span class="step-badge">7</span>
+      <h2>Get Firebase Storage Bucket URL</h2>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>In Firebase Console, click <strong>Build</strong> → <strong>Storage</strong></li>
+        <li>Click <strong>"Get started"</strong> (if first time)</li>
+        <li>You will see your bucket URL: <code style="color:#818CF8">gs://chatapp-prod-12345.appspot.com</code></li>
+        <li>Copy just the bucket name: <strong>chatapp-prod-12345.appspot.com</strong></li>
+        <li>Paste it into <code>FIREBASE_STORAGE_BUCKET</code> in .env</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Step 8 -->
+  <div class="card">
+    <div class="step-header">
+      <span class="step-badge">8</span>
+      <h2>Restart Backend Server</h2>
+    </div>
+    <div class="step-body">
+      <p>After updating .env, restart the backend server to apply changes:</p>
+      <div class="code-block">
+<span class="comment"># In terminal, navigate to backend folder:</span><br>
+cd "c:\xampp\htdocs\chat app\backend"<br><br>
+<span class="comment"># Kill any running server:</span><br>
+npx kill-port 5000<br><br>
+<span class="comment"># Start server again:</span><br>
+npm run dev
+      </div>
+      <div class="success-box">
+        ✅ You will see in logs: <strong>"Firebase Admin SDK initialized"</strong><br>
+        ⚠️ OTP DEV MODE warning will disappear — you're now using LIVE OTP!
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 9 -->
+  <div class="card">
+    <div class="step-header">
+      <span class="step-badge">9</span>
+      <h2>Test Live SMS OTP</h2>
+    </div>
+    <div class="step-body">
+      <p>Open the app and enter your real mobile number. Firebase will send a real SMS within seconds.</p>
+      <ol>
+        <li>Open <strong>http://172.20.10.2:8081</strong></li>
+        <li>Enter your real mobile number (e.g. <strong>+92 300 1234567</strong>)</li>
+        <li>Tap <strong>Continue</strong></li>
+        <li>You will receive a real SMS with a 6-digit code</li>
+        <li>Enter it and tap <strong>Verify</strong></li>
+      </ol>
+      <div class="success-box">
+        🎉 <strong>Live OTP is working!</strong> Your ChatApp is now using real Firebase SMS authentication.
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <p style="text-align:center;color:#475569;font-size:0.85rem;">ChatApp Firebase Setup Guide · Generated automatically</p>
+</div>
+
+</body>
+</html>

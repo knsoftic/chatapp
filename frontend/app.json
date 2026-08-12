@@ -1,0 +1,63 @@
+{
+  "expo": {
+    "name": "ChatApp",
+    "slug": "chat-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0A0E1A"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourcompany.chatapp",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "Required for voice messages",
+        "NSPhotoLibraryUsageDescription": "Required for sharing images",
+        "NSCameraUsageDescription": "Required for profile pictures"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0A0E1A"
+      },
+      "package": "com.yourcompany.chatapp",
+      "permissions": [
+        "RECORD_AUDIO",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "VIBRATE",
+        "RECEIVE_BOOT_COMPLETED"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#4F46E5"
+        }
+      ],
+      [
+        "expo-av",
+        {
+          "microphonePermission": "Allow ChatApp to access your microphone for voice messages."
+        }
+      ]
+    ],
+    "scheme": "chatapp"
+  }
+}
