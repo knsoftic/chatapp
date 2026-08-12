@@ -104,7 +104,7 @@ async function bootstrap() {
   // ── Start ─────────────────────────────────────────────────────────────────
   httpServer.listen(env.port, '0.0.0.0', () => {
     logger.info(`🚀 Server running on port ${env.port} [${env.nodeEnv}]`);
-    logger.info(`🌐 Network access: http://172.20.10.2:${env.port}`);
+    logger.info(`🌐 Network access: http://192.168.100.212:${env.port}`);
     if (env.otp.devMode) {
       logger.warn(`⚠️  OTP DEV MODE ACTIVE — dev OTP code: ${env.otp.devCode}`);
     }

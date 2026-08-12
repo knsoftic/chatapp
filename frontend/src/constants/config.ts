@@ -1,11 +1,11 @@
 // API Configuration
 export const API_BASE_URL = __DEV__
-  ? 'http://172.20.10.2:5000/api'
-  : 'https://your-production-server.com/api';
+  ? 'http://192.168.100.212:5000/api'
+  : 'https://chatappserver.knsoftic.com/api';
 
 export const SOCKET_URL = __DEV__
-  ? 'http://172.20.10.2:5000'
-  : 'https://your-production-server.com';
+  ? 'http://192.168.100.212:5000'
+  : 'https://chatappserver.knsoftic.com';
 
 
 // Storage Keys
