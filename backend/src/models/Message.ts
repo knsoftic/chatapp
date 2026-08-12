@@ -92,7 +92,7 @@ export class MessageModel {
     cursor: string | null
   ): Promise<Message[]> {
     let query = 'SELECT * FROM messages WHERE conversation_id = ?';
-    const params: unknown[] = [conversationId];
+    const params: any[] = [conversationId];
 
     if (cursor) {
       query += ' AND created_at < (SELECT created_at FROM messages WHERE id = ?)';

@@ -48,11 +48,11 @@ export async function authMiddleware(
 }
 
 export function generateAccessToken(userId: string): string {
-  return jwt.sign({ userId }, env.jwt.secret, { expiresIn: env.jwt.expiresIn as string });
+  return jwt.sign({ userId }, env.jwt.secret, { expiresIn: env.jwt.expiresIn as any });
 }
 
 export function generateRefreshToken(userId: string): string {
-  return jwt.sign({ userId }, env.jwt.refreshSecret, { expiresIn: env.jwt.refreshExpiresIn as string });
+  return jwt.sign({ userId }, env.jwt.refreshSecret, { expiresIn: env.jwt.refreshExpiresIn as any });
 }
 
 export function verifyRefreshToken(token: string): { userId: string } {

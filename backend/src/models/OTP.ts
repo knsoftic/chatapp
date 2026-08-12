@@ -48,7 +48,7 @@ export class OTPModel {
     purpose?: 'REGISTRATION' | 'LOGIN'
   ): Promise<OTP | null> {
     let query = `SELECT * FROM otps WHERE mobile_number = ? AND is_verified = 0`;
-    const params: unknown[] = [mobile_number];
+    const params: any[] = [mobile_number];
 
     if (purpose) {
       query += ` AND purpose = ?`;
